@@ -1,0 +1,58 @@
+﻿<Blazorise.ThemeProvider Theme="@theme">
+    <Router AppAssembly="typeof(App).Assembly">
+        <Found Context="routeData">
+            <RouteView RouteData="routeData" DefaultLayout="typeof(APP_NAME.Layouts.MainLayout)" />
+        </Found>
+        <NotFound>
+            <p>Sorry, there's nothing at this address.</p>
+        </NotFound>
+    </Router>
+    <MessageProvider />
+    <PageProgressProvider />
+</Blazorise.ThemeProvider>
+@code {
+    private Theme theme = new()
+        {
+            BarOptions = new()
+            {
+                HorizontalHeight = "72px"
+            },
+            ColorOptions = new()
+            {
+                Primary = PRIMARY_COLOR,
+                Secondary = SECONDARY_COLOR,
+                Success = SUCCESS_COLOR,
+                Info = INFO_COLOR,
+                Warning = WARNING_COLOR,
+                Danger = DANGER_COLOR,
+                Light = LIGHT_COLOR,
+                Dark = DARK_COLOR,
+            },
+            BackgroundOptions = new()
+            {
+                Primary = PRIMARY_COLOR,
+                Secondary = SECONDARY_COLOR,
+                Success = SUCCESS_COLOR,
+                Info = INFO_COLOR,
+                Warning = WARNING_COLOR,
+                Danger = DANGER_COLOR,
+                Light = LIGHT_COLOR,
+                Dark = DARK_COLOR,
+            },
+            TextColorOptions = new()
+            {
+                Primary = PRIMARY_COLOR,
+                Secondary = SECONDARY_COLOR,
+                Success = SUCCESS_COLOR,
+                Info = INFO_COLOR,
+                Warning = WARNING_COLOR,
+                Danger = DANGER_COLOR,
+                Light = LIGHT_COLOR,
+                Dark = DARK_COLOR,
+            },
+            InputOptions = new()
+            {
+                CheckColor = PRIMARY_COLOR,
+            }
+        };
+}

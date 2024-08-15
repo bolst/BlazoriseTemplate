@@ -1,0 +1,47 @@
+﻿@using Blazorise.Localization
+
+<Bar @bind-Visible="@topbarVisible" Breakpoint="Breakpoint.Desktop" Background="Background.Primary" ThemeContrast="ThemeContrast.Light">
+    <BarBrand>
+        <BarItem>
+            <BarLink To="">
+                <BarIcon Margin="Margin.Is2.FromEnd" IconName="IconName.Home" />
+                APP_NAME
+            </BarLink>
+        </BarItem>
+    </BarBrand>
+    <BarToggler />
+    <BarMenu>
+        <BarStart>
+            <BarItem>
+                <BarLink To="/">Home</BarLink>
+            </BarItem>
+            <BarItem>
+                <BarLink To="https://blazorise.com/docs/">Documentation</BarLink>
+            </BarItem>
+            <BarItem>
+                <BarDropdown>
+                    <BarDropdownToggle>More</BarDropdownToggle>
+                    <BarDropdownMenu>
+                        <BarDropdownItem To="https://blazorise.com/docs/start/">
+                            Quick-Start Guide
+                        </BarDropdownItem>
+                        <BarDropdownDivider />
+                        <BarDropdownItem To="https://blazorise.com/docs/usage/">
+                            Usage
+                        </BarDropdownItem>
+                    </BarDropdownMenu>
+                </BarDropdown>
+            </BarItem>
+        </BarStart>
+        <BarEnd>
+            <BarItem>
+                <BarLink To="https://github.com/bolst">GitHub</BarLink>
+            </BarItem>
+        </BarEnd>
+    </BarMenu>
+</Bar>
+@code {
+
+    private bool topbarVisible = false;
+
+}
