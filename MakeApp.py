@@ -15,6 +15,10 @@ def promptFile(filetypes: list[tuple] = [('All files', '*')]) -> str:
     path = filedialog.askopenfilename(filetypes=filetypes)
     return path
 
+def promptDir(title: str = 'Select Directory') -> str:
+    path = filedialog.askdirectory(title=title)
+    return path
+
 def promptColor(title: str = 'Choose Color') -> str:
     _, color_hex = colorchooser.askcolor(title=title)
     return color_hex
@@ -31,7 +35,7 @@ def configureApp(path: str, appName: str, colors: dict, logoPath: str, auth: boo
     removeNode(f'{path}/Pages/Dashboard.razor')
     removeNode(f'{path}/Pages/SimpleFormPage.razor')
     removeNode(f'{path}/Pages/TodoAppPage.razor')
-    removeNode(f'{path}/wwwroot/brand-logo.png')
+    removeNode(f'{path}/wwwroot/brand-logo.png')    
     
     copyFile(logoPath, f'{path}/wwwroot')
     copyFile('./BaseFiles/SideMenu.razor', f'{path}/Components/Layout/SideMenu.razor')
@@ -41,9 +45,11 @@ def configureApp(path: str, appName: str, colors: dict, logoPath: str, auth: boo
     copyFile('./BaseFiles/_Layout.cshtml', f'{path}/Pages/_Layout.cshtml')
     copyFile('./BaseFiles/App.razor', f'{path}/App.razor')
     
+    logo = os.path.basename(logoPath) if len(logoPath) != 0 else ''
+    
     replacements = [
         ('APP_NAME', appName),
-        ('APP_LOGO', os.path.basename(logoPath)),
+        ('APP_LOGO', logo),
         ('PRIMARY_COLOR', f"\"{colors['Primary']}\""),
         ('SECONDARY_COLOR', f"\"{colors['Secondary']}\""),
         ('SUCCESS_COLOR', f"\"{colors['Success']}\""),
@@ -62,9 +68,12 @@ def configureApp(path: str, appName: str, colors: dict, logoPath: str, auth: boo
     if auth:
         pass
     
+def moveApp(appName: str, outPath: str):
+    shutil.move(f'./{appName}', outPath)    
 
 def copyFile(file: str, to: str) -> bool:
-    shutil.copy(file, to)
+    if os.path.exists(file):
+        shutil.copy(file, to)
 
 def removeNode(path):
     if os.path.isdir(path) and not os.path.islink(path):
@@ -87,6 +96,8 @@ def updateFile(path: str, replacements: list[tuple] = []):
 if __name__ == '__main__':
     appName = promptAppName()
     
+    outPath = promptDir('Select Output Location')
+    
     logoPath = promptFile([('Image files', IMAGE_FILETYPES)])
 
     colors = dict.fromkeys(COLOR_TYPES, '#ffffff')
@@ -95,5 +106,6 @@ if __name__ == '__main__':
 
     createBlazoriseApp(appName)
     configureApp(f'./{appName}/{appName}', appName, colors, logoPath)
+    moveApp(appName, outPath)
 
 
