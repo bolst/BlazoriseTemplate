@@ -11,8 +11,8 @@ def promptAppName() -> str:
     appName = appName.replace(' ', '-')
     return appName
 
-def promptFile(filetypes: list[tuple] = [('All files', '*')]) -> str:
-    path = filedialog.askopenfilename(filetypes=filetypes)
+def promptFile(title: str = '', filetypes: list[tuple] = [('All files', '*')]) -> str:
+    path = filedialog.askopenfilename(title=title, filetypes=filetypes)
     return path
 
 def promptDir(title: str = 'Select Directory') -> str:
@@ -98,11 +98,11 @@ if __name__ == '__main__':
     
     outPath = promptDir('Select Output Location')
     
-    logoPath = promptFile([('Image files', IMAGE_FILETYPES)])
+    logoPath = promptFile(title='Select App Logo', filetypes=[('Image files', IMAGE_FILETYPES)])
 
     colors = dict.fromkeys(COLOR_TYPES, '#ffffff')
     for color_type in COLOR_TYPES:
-        colors[color_type] = promptColor(color_type)
+        colors[color_type] = promptColor(title=color_type)
 
     createBlazoriseApp(appName)
     configureApp(f'./{appName}/{appName}', appName, colors, logoPath)
